@@ -14,5 +14,5 @@ def index():
     title = '60 seconds to impress someone'
     pitch = Pitch.query.all()
     
-        return render_template('index.html', title = title,pitch = pitch )
+        return render_template('index.html', title = title)
 
