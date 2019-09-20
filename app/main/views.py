@@ -15,5 +15,5 @@ def index():
     title = '60 seconds to impress someone'
     user= User.query.all()
     
-    return render_template('index.html', title = title)
+    return render_template('index.html', title = title,user = user)
 
