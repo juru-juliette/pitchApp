@@ -14,7 +14,7 @@ class User(UserMixin,db.Model):
     email = db.Column(db.String(255),unique = True,index = True)
     password_hash = db.Column(db.String(255))
     bio = db.Column(db.String(255))
-    pitch = db.relationship('Pitch',backref = 'user',lazy="dynamic")
+    # pitch = db.relationship('Pitch',backref = 'user',lazy="dynamic")
     @property
     def password(self):
             raise AttributeError('You cannot read the password attribute')
@@ -28,17 +28,16 @@ class User(UserMixin,db.Model):
             return check_password_hash(self.pass_secure,password)
     def __repr__(self):
         return f'User {self.username}'
-
-
-class Pitch(db.Model):
-    __tablename__ = 'pitches'
-
-    id = db.Column(db.Integer,primary_key = True)
-    post = db.Column(db.String(255))
-    upvote =db.column(db.string(255))
-    downvote= db.column(db.string(255))
-    user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
-
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
+
+# class Pitch(db.Model):
+#     __tablename__ = 'pitches'
+
+#     id = db.Column(db.Integer,primary_key = True)
+#     post = db.Column(db.String(255))
+#     upvote =db.column(db.string(255))
+#     downvote= db.column(db.string(255))
+#     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+
