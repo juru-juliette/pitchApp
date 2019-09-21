@@ -1,18 +1,31 @@
 {% extends 'base.html'%}
 {% import "bootstrap/wtf.html" as wtf %}
 {% block styles%}
-    {{ super() }}
-    <link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
 {% endblock %}
 
 {% block content %}
-    <div class="container">
+<div class="container">
 
-        <div>
+    <div>
 
-            {{ wtf.quick_form(form) }}
-        </div>
-
+        {{ wtf.quick_form(form) }}
     </div>
+    <ul style="list-style: none;">
+        {% for pitch in pitches %}
+        <div class="list-group">
+            <a href="#">
+                <div class="list-item">
+                    <p>{{pitch.id}}</p>
+                </div>
+                <h4>{{ pitch.post}}</h4>
+                <h6> Posted by {{user.username}}.</h6>
+            </a>
+        </div>
+        {% endfor %}
+    </ul>
+
+</div>
 
 {% endblock %}

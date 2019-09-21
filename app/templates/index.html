@@ -1,8 +1,9 @@
 {% extends 'base.html'%}
+{% import 'macros.html' as macro%}
 {% block content %}
 <div class="container">
     <form>
-        <input type="text" name="movie_query" placeholder="Search for pitch" class="form-control">
+        <input type="text" name="pitch" placeholder="Search for pitch" class="form-control">
         <input type="submit"  value="Submit" class="btn btn-default">
     </form>
 

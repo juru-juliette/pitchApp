@@ -29,16 +29,22 @@ class User(UserMixin,db.Model):
         db.session.commit()
     def __repr__(self):
         return f'User {self.username}'
+
+class Category(db.Model):
+    __tablename__ = 'category'
+
+    id = db.Column(db.Integer,primary_key = True)
+    category = db.Column(db.String(255))
+    pitch= db.relationship('Pitch',backref = 'category',lazy="dynamic")
     
 class Pitch(db.Model):
     __tablename__ = 'pitches'
 
     id = db.Column(db.Integer,primary_key = True)
+    title = db.Column(db.String(255))
     post = db.Column(db.String(255))
-    category = db.Column(db.String(255))
-    upvotes = db.relationship('Upvote', backref = 'pitch', lazy = 'dynamic')
-    downvotes = db.relationship('Downvote', backref = 'pitch', lazy = 'dynamic')
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
+    category_id = db.Column(db.Integer,db.ForeignKey('category.id'))
     @classmethod
     def get_pitches(cls, id):
         pitches = Pitch.query.order_by(pitch_id=id).post().all()
