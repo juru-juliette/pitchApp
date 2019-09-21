@@ -1,9 +1,9 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from .. import db
-from ..models import User
-from flask_login import login_required
-from .forms import ReviewForm,UpdateProfile
+from ..models import User,Pitch
+from flask_login import login_required,current_user
+from .forms import ReviewForm,UpdateProfile,CreatePitches
 # Views
 @main.route('/')
 def index():
@@ -45,3 +45,21 @@ def update_profile(uname):
         return redirect(url_for('.profile',uname=user.username))
 
     return render_template('profile/update.html',form =form)
+
+@main.route('/pitch/new', methods=['GET','POST'])
+@login_required
+def create_pitches():
+    form = CreatePitches()
+
+    if form.validate_on_submit():
+
+        pitch=form.pitch.data
+
+        new_pitch=Pitch(pitch = pitch,user= current_user)
+
+        db.session.add(new_pitch)
+        db.session.commit()
+
+        return redirect(url_for('main.index'))
+
+    return render_template('pitches.html',form = form,user= current_user) 
