@@ -15,4 +15,4 @@ class UpdateProfile(FlaskForm):
 class CreatePitches(FlaskForm):
     title = StringField('Pitch title',validators=[Required()])
     post= TextAreaField('Create your own pitch', validators=[Required()])
-	submit = SubmitField('Submit')
+    submit = SubmitField('Submit')

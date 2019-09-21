@@ -14,8 +14,8 @@ def index():
 
     # Getting pitches
     title = '60 seconds to impress someone'
-    # pitches = Pitch.query.all()
-    return render_template('index.html', title = title)
+    
+    return render_template('index.html', title = title )
 
 @main.route('/user/<uname>')
 def profile(uname):

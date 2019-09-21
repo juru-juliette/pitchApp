@@ -2,15 +2,21 @@
 {% import 'macros.html' as macro%}
 {% block content %}
 <div class="container">
-    <form>
+    <!-- <form>
         <input type="text" name="pitch" placeholder="Search for pitch" class="form-control">
-        <input type="submit"  value="Submit" class="btn btn-default">
-    </form>
+        <input type="submit" value="Submit" class="btn btn-default">
+    </form> -->
 
 </div>
 
 <div class="container">
- <h1>welcome to pitchApp</h1>
+    <h1>welcome to pitchApp</h1>
+    <div class='well'>
+        <a href={{ url_for('main.create_pitches') }}>Create Pitch</a>
+    </div>
+    {% for word in pitch %}
+    <p>{{word.user.username}}</p>
+    <p>{{word.pitch}}</p>
     
 </div>
 
