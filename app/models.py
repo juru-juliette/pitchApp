@@ -48,10 +48,7 @@ class Pitch(db.Model):
         return f'Pitch {self.post}'
     
 #     comment = db.relationship("Comment", backref="pitches", lazy = "dynamic")
-class category (db.Model):
-    __tablename__ = 'category'
-    id = db.column(db.Integer,primary_key = True)
-    category = db.Column(db.String(255))
+
 @login_manager.user_loader
 def load_user(user_id):
     return User.query.get(int(user_id))
