@@ -3,6 +3,7 @@ from . import main
 from .. import db
 from ..models import User
 from flask_login import login_required
+from .forms import ReviewForm,UpdateProfile
 # Views
 @main.route('/')
 def index():
