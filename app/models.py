@@ -12,6 +12,7 @@ class User(UserMixin,db.Model):
     bio = db.Column(db.String(255))
     profile_pic_path = db.Column(db.String())
     pitch = db.relationship('Pitch', backref='user', lazy='dynamic')
+    comment = db.relationship('Comment',backref = 'user',lazy="dynamic")
     @property
     def password(self):
             raise AttributeError('You cannot read the password attribute')
@@ -35,13 +36,13 @@ class Category(db.Model):
 
     id = db.Column(db.Integer,primary_key = True)
     category = db.Column(db.String(255))
-#     pitch= db.relationship('Pitch',backref = 'category',lazy="dynamic")
+    pitch= db.relationship('Pitch',backref = 'category',lazy="dynamic")
     
 class Pitch(db.Model):
     __tablename__ = 'pitches'
 
     id = db.Column(db.Integer,primary_key = True)
-    category = db.Column(db.String(255))
+    title = db.Column(db.String(255))
     pitch = db.Column(db.String(255))
     user_id = db.Column(db.Integer,db.ForeignKey('users.id'))
     category_id = db.Column(db.Integer,db.ForeignKey('category.id'))
@@ -52,6 +53,14 @@ class Pitch(db.Model):
 
     def __repr__(self):
         return f'Pitch {self.pitch}'
+
+class Comment(db.Model):
+    __tablename__ = 'comments'
+
+    id = db.Column(db.Integer,primary_key = True)
+    comment = db.Column(db.String(255))
+    user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
+    pitches_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
 
 @login_manager.user_loader
 def load_user(user_id):

@@ -1,9 +1,9 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from .. import db,photos
-from ..models import User,Pitch
+from ..models import User,Pitch,Comment
 from flask_login import login_required,current_user
-from .forms import ReviewForm,UpdateProfile,CreatePitches
+from .forms import ReviewForm,UpdateProfile,CreatePitches,CommentForm
 # Views
 @main.route('/')
 def index():
@@ -14,8 +14,9 @@ def index():
 
     # Getting pitches
     title = '60 seconds to impress someone'
-    
-    return render_template('index.html', title = title )
+    pitch = Pitch.query.all()
+    comment = Comment.query.all()
+    return render_template('index.html', title = title,pitch = pitch, comment = comment)
 
 @main.route('/user/<uname>')
 def profile(uname):
@@ -63,9 +64,9 @@ def create_pitches():
 
     if form.validate_on_submit():
 
-        pitch=form.pitch.data
-
-        new_pitch=Pitch(pitch = pitch,user= current_user)
+        pitch=form.post.data
+        title=form.title.data
+        new_pitch=Pitch(pitch = pitch,user= current_user,title = title)
 
         db.session.add(new_pitch)
         db.session.commit()
@@ -73,3 +74,21 @@ def create_pitches():
         return redirect(url_for('main.index'))
 
     return render_template('pitches.html',form = form,user= current_user) 
+
+def create_comments(id):
+
+    form = CommentForm()
+
+    if form.validate_on_submit():
+
+        comment=form.comment.data
+
+        new_comment= Comment(comment= comment,pitches_id = id,user= current_user)
+        db.session.add(new_comment)
+        db.session.commit()
+
+    comment = Comment.query.filter_by(pitches_id=id).all()
+        
+
+    return render_template('comment.html',comment = comment, form = form)        
+

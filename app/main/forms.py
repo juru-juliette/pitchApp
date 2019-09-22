@@ -16,3 +16,7 @@ class CreatePitches(FlaskForm):
     title = StringField('Pitch title',validators=[Required()])
     post= TextAreaField('Create your own pitch', validators=[Required()])
     submit = SubmitField('Submit')
+
+class CommentForm(FlaskForm):
+    comment = TextAreaField('Post your Comment here', validators=[Required()])
+    submit = SubmitField('Submit')
