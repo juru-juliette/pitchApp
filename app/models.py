@@ -61,6 +61,7 @@ class Comment(db.Model):
     comment = db.Column(db.String(255))
     user_id = db.Column(db.Integer, db.ForeignKey("users.id"))
     pitches_id = db.Column(db.Integer, db.ForeignKey("pitches.id"))
+    
 
 @login_manager.user_loader
 def load_user(user_id):
