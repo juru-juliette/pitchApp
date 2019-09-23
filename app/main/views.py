@@ -1,9 +1,9 @@
 from flask import render_template,request,redirect,url_for,abort
 from . import main
 from .. import db,photos
-from ..models import User,Pitch,Comment
+from ..models import User,Pitch,Category,Comment
 from flask_login import login_required,current_user
-from .forms import ReviewForm,UpdateProfile,CreatePitches,CommentForm
+from .forms import ReviewForm,UpdateProfile,CreatePitches,Createcategory,CommentForm
 # Views
 @main.route('/')
 def index():
@@ -63,17 +63,35 @@ def create_pitches():
     form = CreatePitches()
 
     if form.validate_on_submit():
-
-        pitch=form.post.data
+        
         title=form.title.data
-        new_pitch=Pitch(pitch = pitch,user= current_user,title = title)
+        category = form.category.data
+        pitch=form.post.data
+        new_pitch=Pitch(pitch = pitch,user= current_user,title = title,category = category)
 
         db.session.add(new_pitch)
         db.session.commit()
 
         return redirect(url_for('main.index'))
 
-    return render_template('pitches.html',form = form,user= current_user) 
+    return render_template('pitches.html',form = form,user= current_user)
+ 
+@main.route('/pitch/new', methods=['GET','POST'])
+@login_required
+def create_category():
+    form =  Createcategory()
+
+    if form.validate_on_submit():
+        
+        category = form.category.data
+        new_category=Category(category = category)
+
+        db.session.add(new_pitch)
+        db.session.commit()
+
+        return redirect(url_for('main.index'))
+
+    return render_template('category.html',form = form,user= current_user)
 @main.route('/comment/new/<int:id>', methods=['GET','POST'])
 @login_required
 def create_comments(id):

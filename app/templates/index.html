@@ -7,9 +7,9 @@
         <a href={{ url_for('main.create_pitches') }}>Create Pitch</a>
     </div>
     {% for word in pitch %}
-    <p>{{word.user.username}}</p>
-    <p>{{word.category}}</p>
-    <p>{{word.pitch}}</p>
+    <p>written by:  {{word.user.username}}</p>
+    <p>pitch category:  {{word.category}}</p>
+    <p>your pitch:  {{word.pitch}}</p>
     {%endfor%}
 </div>
 

@@ -1,0 +1,31 @@
+{% extends 'base.html'%}
+{% import "bootstrap/wtf.html" as wtf %}
+{% block styles%}
+{{ super() }}
+<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
+{% endblock %}
+
+{% block content %}
+<div class="container">
+
+    <div>
+
+        {{ wtf.quick_form(form) }}
+    </div>
+    <ul style="list-style: none;">
+        {% for cat in category %}
+        <div class="list-group">
+            <a href="#">
+                <div class="list-item">
+                    <p>{{cat.id}}</p>
+                </div>
+                <h1>{{ cat.category}}</h1>
+                
+            </a>
+        </div>
+        {% endfor %}
+    </ul>
+
+</div>
+
+{% endblock %}
