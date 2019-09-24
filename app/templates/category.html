@@ -1,31 +1,24 @@
 {% extends 'base.html'%}
-{% import "bootstrap/wtf.html" as wtf %}
-{% block styles%}
-{{ super() }}
-<link rel="stylesheet" href="{{url_for('static',filename='css/index.css')}}">
-{% endblock %}
-
+{% import 'macros.html' as macro%}
 {% block content %}
 <div class="container">
-
-    <div>
-
-        {{ wtf.quick_form(form) }}
+   <div class="row">
+       <div class="col-xs-6 col-sm-6 col-md-6 col-lg-6 movie-details">
+           <h3 class="text-center">{{category.cat_name|upper}}</h3>
+          
+         
     </div>
-    <ul style="list-style: none;">
-        {% for cat in category %}
-        <div class="list-group">
-            <a href="#">
-                <div class="list-item">
-                    <p>{{cat.id}}</p>
-                </div>
-                <h1>{{ cat.category}}</h1>
-                
-            </a>
-        </div>
-        {% endfor %}
-    </ul>
-
+           <hr>
+       </div>
+   </div>
+   <div class="row">
+       <h1>Pitches</h1>
+       <hr>
+       {% if pitches %}
+           {{macro.displayPitches(pitches)}}
+       {% else%}
+           <h3 class="text-center">This category has no pitches </h3>
+       {% endif %}
+   </div>
 </div>
-
 {% endblock %}

@@ -3,15 +3,23 @@
 {% block content %}
 <div class="container">
     <h1>welcome to pitchApp</h1>
+    <div class="row">
+    <br>
+    <h2 style="font-style: inherit"> <strong>PITCH CATEGORIES</strong></h2>
+    <strong style="font-size: 20px;">{{ macro.displayCategoryList(category) }} </strong>
+    <br>
+    <br>
+    <h3 class="add-category"><a class="btn btn-primary" href="/add/category"
+        style="background-color:#002457; float:right;"><span aria-hidden="true"> ADD CATEGORY</span></a></h3>
+    </div>
     <div class='well'>
-        <a href={{ url_for('main.create_pitches') }}>Create Pitch</a>
+        <a href="{{ url_for('main.pitch')}}">Create Pitch</a>
     </div>
     {% for word in pitch %}
-    <p>written by:  {{word.user.username}}</p>
-    <p>pitch category:  {{word.category}}</p>
-    <p>your pitch:  {{word.pitch}}</p>
+    <p>title: {{word.title}}</p>
+    <p>written by: {{word.user.username}}</p>
+    <p>your pitch: {{word.pitch}}</p>
     {%endfor%}
-</div>
 
 
 

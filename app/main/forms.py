@@ -13,14 +13,13 @@ class UpdateProfile(FlaskForm):
     submit = SubmitField('Submit')
 
 class CreatePitches(FlaskForm):
-    category = StringField('pitch category',validators=[Required()])
     title = StringField('Pitch title',validators=[Required()])
     post= TextAreaField('Create your own pitch', validators=[Required()])
     submit = SubmitField('Submit')
 
-# class Createcategory(FlaskForm):
-#     category = StringField('pitch category',validators=[Required()])
-#     submit = SubmitField('Submit')
+class CategoryForm(FlaskForm):
+    name = StringField('pitch category',validators=[Required()])
+    submit = SubmitField('Submit')
 class CommentForm(FlaskForm):
     comment = TextAreaField('Post your Comment here', validators=[Required()])
     submit = SubmitField('Submit')
